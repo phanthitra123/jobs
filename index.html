@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS Jobs | ค้นหาอาชีพยุคใหม่ 2026+</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        theme: {
+                            50: '#fdf2f8', 100: '#fce7f3', 200: '#fbcfe8',
+                            300: '#f9a8d4', 400: '#f472b6', 500: '#ec4899',
+                            600: '#db2777', 700: '#be185d', 800: '#9d174d', 900: '#831843',
+                        }
+                    },
+                    fontFamily: { sans: ['Prompt', 'sans-serif'] },
+                    animation: { 'fade-in': 'fadeIn 0.5s ease-out forwards' },
+                    keyframes: {
+                        fadeIn: {
+                            'from': { opacity: '0', transform: 'translateY(10px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .circles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; pointer-events: none; }
+        .circles li { position: absolute; display: block; list-style: none; width: 20px; height: 20px; background: rgba(255, 255, 255, 0.3); animation: animate 25s linear infinite; bottom: -150px; border-radius: 50%; }
+        .circles li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .circles li:nth-child(2){ left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .circles li:nth-child(3){ left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .circles li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .circles li:nth-child(5){ left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+        .circles li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+        .circles li:nth-child(7){ left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+        .circles li:nth-child(8){ left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+        
+        @keyframes animate {
+            0%{ transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+            100%{ transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+        }
+
+        .page-section { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
+        .page-section.active { display: block; opacity: 1; animation: fadeIn 0.5s ease-out; }
+        #home.page-section.active { display: flex; }
+
+        .custom-scroll::-webkit-scrollbar { width: 8px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .typing-cursor::after { content: '|'; animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body class="text-slate-800 font-sans antialiased overflow-x-hidden relative min-h-screen">
+
+    <div class="fixed inset-0 -z-50 bg-gradient-to-br from-theme-400 to-theme-600 pointer-events-none">
+        <ul class="circles"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+    </div>
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-slate-100">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" onclick="showPage('home')" class="text-2xl font-bold text-theme-600 flex items-center gap-2 hover:scale-105 transition cursor-pointer">
+                <i class="fa-solid fa-briefcase"></i> PS Jobs
+            </a>
+            
+            <div class="hidden md:flex space-x-1">
+                <button onclick="showPage('home')" class="px-4 py-2 rounded-full text-slate-600 hover:text-theme-600 hover:bg-theme-50 transition font-medium cursor-pointer">หน้าแรก</button>
+                <button onclick="showPage('careers')" class="px-4 py-2 rounded-full text-slate-600 hover:text-theme-600 hover:bg-theme-50 transition font-medium cursor-pointer">ค้นหาอาชีพ</button>
+                <button onclick="showPage('about')" class="px-4 py-2 rounded-full text-slate-600 hover:text-theme-600 hover:bg-theme-50 transition font-medium cursor-pointer">เกี่ยวกับเรา</button>
+                <button onclick="showPage('contact')" class="px-4 py-2 rounded-full text-slate-600 hover:text-theme-600 hover:bg-theme-50 transition font-medium cursor-pointer">ผู้จัดทำ</button>
+            </div>
+
+            <button onclick="toggleMobileMenu()" class="md:hidden text-theme-600 text-2xl focus:outline-none cursor-pointer">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 p-4 shadow-lg absolute w-full z-40">
+            <button onclick="showPage('home')" class="block w-full text-left py-3 px-4 text-slate-600 hover:bg-theme-50 hover:text-theme-600 rounded-lg cursor-pointer mb-1">หน้าแรก</button>
+            <button onclick="showPage('careers')" class="block w-full text-left py-3 px-4 text-slate-600 hover:bg-theme-50 hover:text-theme-600 rounded-lg cursor-pointer mb-1">ค้นหาอาชีพ</button>
+            <button onclick="showPage('about')" class="block w-full text-left py-3 px-4 text-slate-600 hover:bg-theme-50 hover:text-theme-600 rounded-lg cursor-pointer mb-1">เกี่ยวกับเรา</button>
+            <button onclick="showPage('contact')" class="block w-full text-left py-3 px-4 text-slate-600 hover:bg-theme-50 hover:text-theme-600 rounded-lg cursor-pointer">ผู้จัดทำ</button>
+        </div>
+    </nav>
+
+    <section id="home" class="page-section active min-h-screen flex-col items-center justify-center text-white pt-20">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="inline-block bg-white/20 px-6 py-2 rounded-full text-sm font-bold mb-6 border border-white/30 shadow-lg backdrop-blur-md">
+                ✨ PS Jobs Career Platform
+            </div>
+            <h1 class="text-4xl md:text-7xl font-bold mb-6 drop-shadow-lg leading-tight">
+                อาชีพแห่งอนาคต <br/>
+                <span id="typing-text" class="text-white typing-cursor"></span>
+            </h1>
+            <p class="text-lg md:text-2xl mb-10 opacity-95 max-w-3xl mx-auto font-light text-white drop-shadow-md">
+                ค้นพบโอกาสใหม่ๆ ในโลกยุค AI และเทคโนโลยี พร้อมข้อมูลเชิงลึก เงินเดือน และทักษะที่จำเป็น
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <button onclick="showPage('careers')" class="bg-white text-theme-600 px-8 py-4 rounded-full font-bold shadow-xl hover:bg-theme-50 hover:scale-105 transition transform text-lg cursor-pointer">
+                    <i class="fa-solid fa-magnifying-glass mr-2"></i> ค้นหาอาชีพ
+                </button>
+                <button onclick="showPage('about')" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition text-lg cursor-pointer">
+                    รู้จัก PS Jobs
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="careers" class="page-section min-h-screen pt-24 pb-20">
+        <div class="container mx-auto px-6 relative z-10">
+            
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-white drop-shadow-md mb-4">สำรวจอาชีพมาแรง 2026+</h2>
+                <div class="w-24 h-1 bg-white mx-auto rounded-full mb-4 shadow-sm"></div>
+                <p class="text-white/90 drop-shadow-sm font-light text-lg">เลือกหมวดหมู่เพื่อดูรายละเอียดเชิงลึก</p>
+            </div>
+
+            <div class="max-w-xl mx-auto mb-8 relative z-30 px-4">
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-theme-500 transition"></i>
+                    </div>
+                    <input type="text" id="search-input" onkeyup="searchJobs()"
+                        class="block w-full pl-11 pr-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-full leading-5 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-theme-400 focus:border-transparent shadow-md transition duration-300"
+                        placeholder="ค้นหาอาชีพ, ทักษะ หรือคีย์เวิร์ด... (เช่น AI, Data, Python)">
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3 mb-10 sticky top-24 z-30 bg-white/30 backdrop-blur-md py-4 px-4 shadow-lg rounded-2xl mx-auto max-w-4xl border border-white/40">
+                <button onclick="filterJobs('all')" class="filter-btn active bg-theme-600 text-white shadow-md px-6 py-2 rounded-full transition cursor-pointer hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent">ทั้งหมด</button>
+                <button onclick="filterJobs('AI & Data')" class="filter-btn bg-white text-slate-600 border border-slate-200 px-6 py-2 rounded-full transition cursor-pointer hover:bg-theme-50 hover:text-theme-600">AI & Data</button>
+                <button onclick="filterJobs('Software')" class="filter-btn bg-white text-slate-600 border border-slate-200 px-6 py-2 rounded-full transition cursor-pointer hover:bg-theme-50 hover:text-theme-600">Software</button>
+                <button onclick="filterJobs('Creative')" class="filter-btn bg-white text-slate-600 border border-slate-200 px-6 py-2 rounded-full transition cursor-pointer hover:bg-theme-50 hover:text-theme-600">Creative</button>
+                <button onclick="filterJobs('Business')" class="filter-btn bg-white text-slate-600 border border-slate-200 px-6 py-2 rounded-full transition cursor-pointer hover:bg-theme-50 hover:text-theme-600">Business</button>
+                <button onclick="filterJobs('Security')" class="filter-btn bg-white text-slate-600 border border-slate-200 px-6 py-2 rounded-full transition cursor-pointer hover:bg-theme-50 hover:text-theme-600">Security</button>
+                <button onclick="filterJobs('Health')" class="filter-btn bg-white text-slate-600 border border-slate-200 px-6 py-2 rounded-full transition cursor-pointer hover:bg-theme-50 hover:text-theme-600">Health</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="job-container">
+                </div>
+        </div>
+    </section>
+
+    <section id="about" class="page-section min-h-screen pt-24 pb-20">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-white mb-8 text-center drop-shadow-md">เกี่ยวกับ PS Jobs</h2>
+                
+                <div class="bg-white/95 backdrop-blur rounded-3xl p-8 md:p-12 mb-12 shadow-xl border border-white/50 flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/3 text-center">
+                        <div class="bg-theme-50 p-6 rounded-full inline-block shadow-md">
+                            <i class="fa-solid fa-lightbulb text-6xl text-theme-500"></i>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">วิสัยทัศน์ของเรา</h3>
+                        <p class="text-slate-600 leading-relaxed text-lg">
+                            "PS Jobs มุ่งมั่นที่จะเป็นแหล่งข้อมูลชั้นนำสำหรับคนรุ่นใหม่ เพื่อเตรียมความพร้อมสู่ตลาดแรงงานในยุคปัญญาประดิษฐ์ (AI Disruption) เราเชื่อว่าเทคโนโลยีไม่ใช่ศัตรู แต่เป็นเครื่องมือที่ทรงพลังที่สุดหากเราเรียนรู้ที่จะใช้งานมัน"
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="p-6 bg-white/95 backdrop-blur border border-slate-100 rounded-xl shadow-lg hover:-translate-y-1 transition duration-300">
+                        <i class="fa-solid fa-book-open text-4xl text-theme-400 mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2 text-slate-800">ความรู้ทันสมัย</h4>
+                        <p class="text-slate-500">อัปเดตเทรนด์อาชีพปี 2026+</p>
+                    </div>
+                    <div class="p-6 bg-white/95 backdrop-blur border border-slate-100 rounded-xl shadow-lg hover:-translate-y-1 transition duration-300">
+                        <i class="fa-solid fa-chart-line text-4xl text-theme-400 mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2 text-slate-800">ข้อมูลเชิงลึก</h4>
+                        <p class="text-slate-500">วิเคราะห์ทักษะและเงินเดือนจริง</p>
+                    </div>
+                    <div class="p-6 bg-white/95 backdrop-blur border border-slate-100 rounded-xl shadow-lg hover:-translate-y-1 transition duration-300">
+                        <i class="fa-solid fa-users text-4xl text-theme-400 mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2 text-slate-800">สำหรับทุกคน</h4>
+                        <p class="text-slate-500">เข้าใจง่าย ใช้งานสะดวก</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="page-section min-h-screen pt-24 pb-20">
+        <div class="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center min-h-[70vh]">
+            <h2 class="text-4xl font-bold text-white mb-12 drop-shadow-md">ผู้จัดทำ</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl w-full">
+                <div class="bg-white/95 backdrop-blur p-8 rounded-3xl shadow-xl text-center transform hover:scale-105 transition duration-300 border-b-4 border-theme-500 cursor-default">
+                    <div class="w-24 h-24 bg-theme-100 rounded-full mx-auto mb-6 flex items-center justify-center text-3xl text-theme-500 shadow-inner">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">นส.สุพรรษา กำลังเหลือ</h3>
+                    <p class="text-theme-600 font-medium mb-4">Co-Founder & Developer</p>
+                    <p class="text-slate-500 text-sm italic">
+                        "มุ่งมั่นพัฒนาแพลตฟอร์มเพื่อการเรียนรู้ที่เข้าถึงได้ง่ายสำหรับทุกคน"
+                    </p>
+                </div>
+
+                <div class="bg-white/95 backdrop-blur p-8 rounded-3xl shadow-xl text-center transform hover:scale-105 transition duration-300 border-b-4 border-theme-500 cursor-default">
+                    <div class="w-24 h-24 bg-theme-100 rounded-full mx-auto mb-6 flex items-center justify-center text-3xl text-theme-500 shadow-inner">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">นส.พันธิตรา บัวเกตุ</h3>
+                    <p class="text-theme-600 font-medium mb-4">Co-Founder & Content Creator</p>
+                    <p class="text-slate-500 text-sm italic">
+                        "สร้างสรรค์เนื้อหาที่สร้างแรงบันดาลใจและเป็นประโยชน์ต่อสังคม"
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <p class="text-white/90 mb-4 font-light drop-shadow">ติดต่อเราได้ที่</p>
+                <a href="mailto:contact@psjobs.th" class="inline-flex items-center bg-white text-theme-600 font-bold px-8 py-3 rounded-full hover:bg-theme-50 transition shadow-lg hover:shadow-xl cursor-pointer">
+                    <i class="fa-solid fa-envelope mr-2"></i> contact@psjobs.th
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="relative z-50 bg-theme-900 text-white py-8 mt-auto">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-3 mb-4">
+                <span class="font-bold text-lg tracking-wide">PS Jobs</span>
+                <span class="hidden md:inline text-theme-600">|</span>
+                <span class="text-theme-200 text-sm">Created by สุพรรษา & พันธิตรา</span>
+            </div>
+            <p class="text-xs text-theme-400 font-light">&copy; 2026 PS Jobs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="job-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/70 p-4 opacity-0 invisible transition-all duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col relative scale-95 transition-transform duration-300" id="modal-content">
+            
+            <div class="bg-gradient-to-r from-theme-600 to-theme-500 p-6 md:p-8 text-white shrink-0 relative">
+                <button onclick="closeModal()" class="absolute top-6 right-6 text-white/80 hover:text-white text-2xl transition bg-white/10 rounded-full w-10 h-10 flex items-center justify-center hover:bg-white/20 cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="flex items-start gap-4 pr-10">
+                    <div class="hidden md:flex w-16 h-16 bg-white/20 rounded-2xl items-center justify-center text-3xl shrink-0 backdrop-blur-sm">
+                        <i id="modal-icon" class="fa-regular fa-id-badge"></i>
+                    </div>
+                    <div>
+                        <span id="modal-category" class="bg-black/20 text-xs px-3 py-1 rounded-full uppercase tracking-wider mb-2 inline-block font-semibold backdrop-blur-sm">Category</span>
+                        <h2 id="modal-title" class="text-2xl md:text-4xl font-bold leading-tight">Job Title</h2>
+                        <div class="flex flex-wrap items-center gap-4 mt-3 text-sm md:text-base font-medium text-theme-50">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-money-bill-wave"></i> <span id="modal-salary"></span></span>
+                            <span class="w-1 h-1 bg-white/50 rounded-full"></span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-location-dot"></i> <span id="modal-mode"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 md:p-10 overflow-y-auto custom-scroll grow bg-slate-50">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 space-y-8">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                            <h3 class="text-lg font-bold text-theme-800 mb-4 border-b pb-2 border-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-align-left text-theme-500"></i> รายละเอียดงาน
+                            </h3>
+                            <p id="modal-long-desc" class="text-slate-600 leading-relaxed text-base"></p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                            <h3 class="text-lg font-bold text-theme-800 mb-4 border-b pb-2 border-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-list-check text-theme-500"></i> หน้าที่ความรับผิดชอบ
+                            </h3>
+                            <ul id="modal-responsibilities" class="space-y-3"></ul>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wide mb-4">Hard Skills & Tools</h3>
+                            <div id="modal-skills" class="flex flex-wrap gap-2 mb-4"></div>
+                            <div id="modal-tools" class="flex flex-wrap gap-2"></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                            <div class="mb-6">
+                                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wide mb-2">โอกาสเติบโต</h3>
+                                <div class="flex items-center gap-2 text-green-600 font-bold bg-green-50 px-3 py-2 rounded-lg inline-block border border-green-100">
+                                    <i class="fa-solid fa-arrow-trend-up"></i> <span id="modal-growth"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wide mb-2">พื้นฐานการศึกษาที่แนะนำ</h3>
+                                <p id="modal-education" class="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-100"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="jobs.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
