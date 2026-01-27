@@ -15,7 +15,6 @@ if (typeof jobsData === 'undefined') {
 }
 
 // --- ฟังก์ชันช่วยสร้าง HTML (Helper Function) ---
-// ฟังก์ชันนี้มีหน้าที่ "วาดการ์ด" อย่างเดียว เพื่อให้ทั้ง Search และ Filter เรียกใช้ได้
 function drawJobsToContainer(jobsList) {
     var container = document.getElementById('job-container');
     if (!container) return;
@@ -29,34 +28,42 @@ function drawJobsToContainer(jobsList) {
 
     jobsList.forEach(function(job, index) {
         var delay = index * 50;
-        var iconClass = job.icon || "fa-solid fa-briefcase";
+        var imageUrl = job.image || `https://placehold.co/600x400?text=${encodeURIComponent(job.title)}`;
+        var refLink = job.reference || "#";
         
+        // แก้ไข: เอา backdrop-blur ออกจาก Badge บนรูปภาพ
         var cardHTML = `
-            <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 flex flex-col h-full cursor-pointer relative overflow-hidden group hover:-translate-y-2 hover:shadow-2xl transition duration-300 opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]"
-                 style="animation-delay: ${delay}ms;"
-                 onclick="openModal(${job.id})">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 flex flex-col h-full overflow-hidden group hover:-translate-y-2 hover:shadow-2xl transition duration-300 opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]"
+                 style="animation-delay: ${delay}ms;">
                 
-                <div class="absolute top-0 right-0 w-16 h-16 bg-theme-50 rounded-bl-3xl -mr-2 -mt-2 transition-colors group-hover:bg-theme-100 flex items-center justify-center text-theme-300 group-hover:text-theme-500">
-                     <i class="${iconClass} text-2xl"></i>
+                <div class="h-48 w-full overflow-hidden relative cursor-pointer" onclick="openModal(${job.id})">
+                    <img src="${imageUrl}" alt="${job.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute top-2 right-2">
+                         <span class="text-xs font-bold text-theme-600 bg-white px-3 py-1 rounded-full shadow-md border border-slate-100">
+                            ${job.category}
+                        </span>
+                    </div>
                 </div>
 
-                <div class="mb-4">
-                    <span class="text-xs font-bold text-theme-600 bg-theme-50 px-3 py-1 rounded-full border border-theme-100">
-                        ${job.category}
-                    </span>
-                </div>
-
-                <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-theme-600 transition line-clamp-2 pr-8">${job.title}</h3>
-                <p class="text-slate-500 text-sm line-clamp-2 mb-4 h-10">${job.desc}</p>
-                
-                <div class="mt-auto pt-4 border-t border-slate-100 flex justify-between items-center">
-                    <div>
+                <div class="p-6 flex flex-col flex-grow cursor-pointer" onclick="openModal(${job.id})">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-theme-600 transition line-clamp-2 leading-tight">
+                        ${job.title}
+                    </h3>
+                    <p class="text-slate-500 text-sm line-clamp-2 mb-4 h-10 text-xs">${job.desc}</p>
+                    
+                    <div class="mt-auto pt-3 border-t border-slate-100">
                         <p class="text-xs text-slate-400">เงินเดือนเฉลี่ย</p>
                         <p class="text-sm font-bold text-theme-600">${job.salary}</p>
                     </div>
-                    <div class="text-slate-300 group-hover:translate-x-1 transition text-sm flex items-center gap-1 group-hover:text-theme-500">
-                        ดูข้อมูล <i class="fa-solid fa-chevron-right text-xs"></i>
-                    </div>
+                </div>
+
+                <div class="bg-slate-50 px-6 py-3 flex justify-between items-center text-xs font-medium border-t border-slate-100">
+                     <a href="${refLink}" target="_blank" class="text-slate-400 hover:text-theme-600 transition flex items-center gap-1 z-10" onclick="event.stopPropagation()">
+                        <i class="fa-solid fa-external-link-alt"></i> อ้างอิง
+                     </a>
+                     <button onclick="openModal(${job.id})" class="text-theme-500 hover:text-theme-700 transition flex items-center gap-1">
+                        รายละเอียด <i class="fa-solid fa-arrow-right"></i>
+                     </button>
                 </div>
             </div>
         `;
@@ -68,22 +75,23 @@ function drawJobsToContainer(jobsList) {
 // --- ส่วนฟังก์ชันค้นหา (Search Logic) --- 
 window.searchJobs = function() {
     var input = document.getElementById('search-input');
-    var filterText = input.value.toLowerCase().trim(); // แปลงเป็นตัวพิมพ์เล็กและตัดช่องว่าง
+    var filterText = input.value.toLowerCase().trim();
     
-    // รีเซ็ตปุ่มหมวดหมู่ให้ดูเหมือนไม่ได้เลือก (Optional)
+    // Class พื้นฐานสำหรับปุ่ม (อัปเดตให้ตรงกับ HTML ใหม่)
+    var inactiveClass = 'filter-btn whitespace-nowrap px-6 py-2.5 rounded-full text-sm md:text-base font-medium shadow-sm transition-all duration-300 hover:-translate-y-1 bg-white text-slate-600 hover:bg-slate-50 hover:text-theme-600 hover:shadow-md border border-slate-100 flex-shrink-0';
+    
+    // รีเซ็ตปุ่มหมวดหมู่
     var buttons = document.querySelectorAll('.filter-btn');
     buttons.forEach(function(btn) {
-        btn.className = 'filter-btn bg-white text-slate-600 border border-slate-200 px-6 py-2 rounded-full transition cursor-pointer hover:bg-theme-50 hover:text-theme-600';
+        btn.className = inactiveClass;
     });
 
     // กรองข้อมูล
     var filtered = safeJobsData.filter(function(job) {
-        // ค้นหาใน ชื่ออาชีพ, คำอธิบาย, หรือ หมวดหมู่
         var matchTitle = job.title.toLowerCase().includes(filterText);
         var matchDesc = job.desc.toLowerCase().includes(filterText);
         var matchCat = job.category.toLowerCase().includes(filterText);
         
-        // ค้นหาใน Skills (Array)
         var matchSkill = job.skills && job.skills.some(function(skill) {
             return skill.toLowerCase().includes(filterText);
         });
@@ -91,7 +99,6 @@ window.searchJobs = function() {
         return matchTitle || matchDesc || matchCat || matchSkill;
     });
 
-    // วาดผลลัพธ์
     drawJobsToContainer(filtered);
 };
 
@@ -100,28 +107,29 @@ window.searchJobs = function() {
 window.renderJobs = function(filter) {
     if (!filter) filter = 'all';
 
-    // ล้างช่องค้นหาเมื่อกดปุ่มหมวดหมู่
     var searchInput = document.getElementById('search-input');
     if(searchInput) searchInput.value = '';
 
-    // กรองข้อมูล
     var filteredJobs = (filter === 'all') 
         ? safeJobsData 
         : safeJobsData.filter(function(job) { return job.category.includes(filter); });
 
-    // วาดผลลัพธ์
     drawJobsToContainer(filteredJobs);
 };
 
 window.filterJobs = function(category) {
-    // จัดการปุ่มกด (Highlight ปุ่มที่เลือก)
     var buttons = document.querySelectorAll('.filter-btn');
+    
+    // Design ใหม่: Active สีชัดเจน มีเงา / Inactive สีขาวเรียบๆ
+    var inactiveClass = 'filter-btn whitespace-nowrap px-6 py-2.5 rounded-full text-sm md:text-base font-medium shadow-sm transition-all duration-300 hover:-translate-y-1 bg-white text-slate-600 hover:bg-slate-50 hover:text-theme-600 hover:shadow-md border border-slate-100 flex-shrink-0';
+    var activeClass = 'filter-btn active whitespace-nowrap px-6 py-2.5 rounded-full text-sm md:text-base font-medium shadow-lg transition-all duration-300 hover:-translate-y-1 bg-gradient-to-r from-theme-500 to-theme-600 text-white ring-2 ring-theme-200 ring-offset-2 flex-shrink-0';
+
     buttons.forEach(function(btn) {
-        btn.className = 'filter-btn bg-white text-slate-600 border border-slate-200 px-6 py-2 rounded-full transition cursor-pointer hover:bg-theme-50 hover:text-theme-600';
+        btn.className = inactiveClass;
         
-        if ((category === 'all' && btn.innerText === 'ทั้งหมด') || 
+        if ((category === 'all' && btn.innerText.trim() === 'ทั้งหมด') || 
             (category !== 'all' && btn.innerText.includes(category))) {
-            btn.className = 'filter-btn active bg-theme-600 text-white shadow-md px-6 py-2 rounded-full transition cursor-pointer hover:shadow-lg transform hover:-translate-y-0.5 border border-transparent';
+            btn.className = activeClass;
         }
     });
 
@@ -129,7 +137,7 @@ window.filterJobs = function(category) {
 };
 
 
-// --- ส่วน Navigation & Modal (คงเดิม) ---
+// --- ส่วน Navigation & Modal (เหมือนเดิม) ---
 window.showPage = function(pageId) {
     var sections = document.querySelectorAll('.page-section');
     sections.forEach(function(section) {
@@ -177,9 +185,9 @@ window.openModal = function(id) {
     setText('modal-education', job.education);
     setText('modal-long-desc', job.long_desc);
 
-    var iconEl = document.getElementById('modal-icon');
-    if (iconEl) {
-        iconEl.className = job.icon || "fa-regular fa-id-badge";
+    var imgEl = document.getElementById('modal-image');
+    if (imgEl) {
+        imgEl.src = job.image || `https://placehold.co/600x400?text=${encodeURIComponent(job.title)}`;
     }
 
     var respEl = document.getElementById('modal-responsibilities');
@@ -276,8 +284,8 @@ function typeWriter() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("Website Loaded with Search Logic");
-    renderJobs(); // เริ่มต้นแสดงข้อมูลทั้งหมด
+    console.log("Website Loaded with No-Blur Design");
+    renderJobs();
     typeWriter();
     showPage('home');
 });
