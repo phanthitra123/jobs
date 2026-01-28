@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor - นวัตกรรมเพื่อการศึกษา</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">🎓 EdTech AI</div>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showPage('home')" id="nav-home">หน้าหลัก</a></li>
+                <li><a href="#" onclick="showPage('chat')" id="nav-chat">ห้องเรียน AI (Chatbot)</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home-page" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>การใช้ AI Chatbot <br><span class="highlight">เพื่อพัฒนาการเรียนการสอน</span></h1>
+                <p>ยกระดับขีดความสามารถทางการศึกษาด้วยเทคโนโลยีปัญญาประดิษฐ์ ที่พร้อมเป็นผู้ช่วยส่วนตัวตลอด 24 ชั่วโมง</p>
+                <div class="hero-features">
+                    <div class="feature-card">🧠 <h3>เรียนรู้ส่วนบุคคล</h3></div>
+                    <div class="feature-card">⚡ <h3>คำตอบทันใจ</h3></div>
+                    <div class="feature-card">📊 <h3>วิเคราะห์เนื้อหา</h3></div>
+                </div>
+                <button class="cta-btn pulse" onclick="showPage('chat')">เริ่มต้นใช้งานแชทบอท</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="chat-page" class="page">
+        <div class="chat-container">
+            <div class="chat-header-bar">
+                <div class="status-info">
+                    <span class="blink"></span>
+                    <span>ระบบช่วยสอนอัจฉริยะ (Academic AI)</span>
+                </div>
+                <button onclick="clearChat()" class="clear-btn">ล้างแชท</button>
+            </div>
+            <div id="chat-box" class="chat-box">
+                <div class="message bot-message">
+                    <div class="avatar">AI</div>
+                    <div class="bubble">สวัสดีครับ ผมพร้อมตอบคำถามเชิงวิชาการแล้วครับ!</div>
+                </div>
+            </div>
+            <div id="typing-indicator" class="typing-indicator hidden">AI กำลังวิเคราะห์ข้อมูล...</div>
+            <div class="input-area">
+                <input type="text" id="user-input" placeholder="พิมพ์คำถามที่นี่..." onkeypress="handleEnter(event)">
+                <button onclick="sendMessage()" class="send-btn">ส่ง</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
